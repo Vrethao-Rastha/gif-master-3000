@@ -8,7 +8,7 @@ import {
      export default (state = initialState, action) => {
        switch(action.type) {
          case SEARCH_SUCCESS:
-           return [...action.payload]
+           return action.payload.data
          case SEARCH_FAILED:
            return action.payload
          default:

@@ -8,7 +8,7 @@ import {
      export default (state = initialState, action) => {
        switch(action.type) {
          case RANDOM_SUCCESS:
-           return [...action.payload]
+           return [action.payload.data]
          case RANDOM_FAILED:
            return action.payload
          default:

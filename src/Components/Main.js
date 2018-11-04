@@ -15,16 +15,19 @@ import {
     FormText
      } from 'reactstrap';
 import { bindActionCreators } from 'redux';
+import Display from './Display';
 
 class Main extends Component {
 
     state = {
-        search: ''
+        search: '',
+        number: '',
+        filterBy: ''
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        this.props.submitSearch(this.state.search)
+        this.props.submitSearch(this.state.search, this.state.number)
     }
 
     handleRandom = (e) => {
@@ -32,11 +35,29 @@ class Main extends Component {
         this.props.submitRandom()
     }
 
-    render() {
+    setNumber = (e) => {
+        this.setState({ number: e.target.value })
+    }
 
+    setFilter = (e) => {
+        this.setState({ filterBy: e.target.value })
+    }
+
+    render() {
         const { search } = this.state
         const Enabled = search.length > 0
-        //const results = this.props.search_result.map(file => <Result key={ file.id} file={ file } />)
+        const results = this.props.search_result.map(file => <Display key={ file.id} file={ file } />)
+        const randomResults = this.props.random_result.map(file => <Display key={ file.id} file={ file } />)
+        if(this.props.search_result.length > 0){
+        const filteredResults = this.props.search_result.filter(input => input.title == (this.props.search_result.title.indexOf(this.state.filterBy) !== -1))
+    }
+        //const filteredDisplay = this.props.filteredResults
+        console.log('filterBy', this.state.filterBy)
+        console.log('results', results)
+        if(this.props.search_result.length > 0){
+
+        console.log('filtered results',filteredResults)
+        }
 
         return (
             <div>
@@ -51,17 +72,21 @@ class Main extends Component {
                     <Input onChange={ e => this.setState({ search: e.target.value})}></Input>
                     
                 </Col>
+               
                 <Button disabled={ !Enabled } type="submit" >Search!</Button>
+               
                 </FormGroup>
                 <FormGroup row>
                 <Label>How many GIF's do you need?</Label>
                 <Col>
-                <Input type="select" className="col-md-2">
-                        <option></option>
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
+                <Input type="select" value={ this.state.number } onChange={ this.setNumber } className="col-md-2">
+                
+                        <option value="0"></option>
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
 
                     </Input>
                 </Col>
@@ -77,6 +102,20 @@ class Main extends Component {
                   </Col>
               </FormGroup>
             </Form>
+
+            
+            {/* { (this.props.search_result.length > 0) ? */}
+            <Label className="mx-auto">Filters</Label>
+            <InputGroup className="col-md-2 offset-2">
+            <Label className="mr-3">Sort</Label><Input value={ this.state.filterBy } onChange={ this.setFilter }></Input>
+            </InputGroup>
+            
+            {/* : null } */}
+            <div className="col-md-12 d-flex flex-wrap">
+                { results }
+                
+                { randomResults } 
+            </div>
 
             </div>
         )
