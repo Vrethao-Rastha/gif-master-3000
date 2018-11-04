@@ -11,6 +11,7 @@ const Display = (props) => {
     return ( 
         
         <div className="col-md-3">
+        {/* Conditional render because the page was rendering before the data arrived */}
         { props.file.images.downsized.url ? 
         
             <Card>

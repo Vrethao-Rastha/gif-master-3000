@@ -9,9 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 let newStore = store()
 
 ReactDOM.render(
-<Provider store={ newStore }>
-<App />
-</Provider>,
+    <Provider store={ newStore }>
+        <App />
+    </Provider>,
 document.getElementById('root'));
 
 
