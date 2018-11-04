@@ -12,7 +12,6 @@ import {
     Form,
     Button,
     FormGroup,
-    FormText
      } from 'reactstrap';
 import Display from './Display';
 
