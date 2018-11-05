@@ -43,8 +43,8 @@ class Main extends Component {
 
     render() {
         //Simple verification on search input so a blank search can't be submitted 
-        const { search } = this.state
-        const Enabled = search.length > 0
+        const { search, number } = this.state
+        const Enabled = search.length > 0 && number.length > 0
 
         //Search result functionality
         const results = this.props.search_result.map(file => <Display key={ file.id} file={ file } />)
